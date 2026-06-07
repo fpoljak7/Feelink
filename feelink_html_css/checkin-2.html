@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feelink – Check-in</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="checkin.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">
+    <img src="img/logo-icon.svg" alt="Feelink logo" class="logo-icon" />
+    <span class="logo-text">Feelink</span>
+  </div>
+  <a href="login.html" class="logout-btn">Odjava</a>
+</header>
+
+<main class="main">
+
+  <div class="steps">
+    <div class="step done"></div>
+    <div class="step active"></div>
+    <div class="step"></div>
+  </div>
+
+  <h2 class="screen-title">Želiš dodati<br/><em>bilješku?</em></h2>
+  <p class="screen-sub">Nije obavezno – maksimalno 200 znakova.</p>
+
+  <div class="note-wrap">
+    <textarea
+      class="note-input"
+      placeholder="Napiši kako se osjećaš u par rečenica…"
+      maxlength="200"
+    ></textarea>
+  </div>
+
+  <div class="btn-row">
+    <a href="checkin-1.html" class="btn btn-ghost">← Nazad</a>
+    <a href="checkin-3.html" class="btn">Nastavi →</a>
+  </div>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feelink – Prijava / Registracija</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+<div class="split-left">
+  <div class="hero-content">
+    <h1 class="hero-title">Prati kako se osjećaš,<br/><em>svaki dan.</em></h1>
+    <p class="hero-sub">Feelink ti pomaže izgraditi emocionalni profil i bolje razumjeti sebe.</p>
+    <div class="hero-badges">
+      <span class="badge">🔒 GDPR</span>
+      <span class="badge">🤖 AI uvidi</span>
+      <span class="badge">📊 Vizualizacije</span>
+    </div>
+  </div>
+</div>
+
+<div class="split-right">
+  <div class="card">
+
+    <div class="tabs">
+      <a href="#login"    class="tab">Prijava</a>
+      <a href="#register" class="tab">Registracija</a>
+    </div>
+
+    <div id="login" class="form">
+      <div class="field">
+        <label for="login-email">E-mail</label>
+        <input type="email" id="login-email" placeholder="ime@email.com" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="login-pw">Lozinka</label>
+        <input type="password" id="login-pw" placeholder="Vaša lozinka" autocomplete="current-password" required />
+      </div>
+      <a href="checkin.html" class="btn">Prijavi se</a>
+      <p class="switch-link">Nemate račun? <a href="#register">Registrirajte se</a></p>
+    </div>
+
+    <div id="register" class="form">
+      <div class="field">
+        <label for="reg-email">E-mail</label>
+        <input type="email" id="reg-email" placeholder="ime@email.com" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="reg-pw">Lozinka</label>
+        <input type="password" id="reg-pw" placeholder="Min. 8 znakova" autocomplete="new-password" required />
+      </div>
+      <div class="field">
+        <label for="reg-pw2">Potvrdi lozinku</label>
+        <input type="password" id="reg-pw2" placeholder="Ponovite lozinku" autocomplete="new-password" required />
+      </div>
+      <a href="#login" class="btn">Kreiraj račun</a>
+      <p class="switch-link">Već imate račun? <a href="#login">Prijavite se</a></p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
