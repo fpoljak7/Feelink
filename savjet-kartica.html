@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feelink — Savjet</title>
+    <link rel="stylesheet" href="../frontend/style.css">
+    <style>
+        .savjet-kartica {
+            background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+            border-radius: 14px;
+            padding: 20px;
+            margin-top: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .savjet-ikona {
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+
+        .savjet-sadrzaj h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #4c1d95;
+            margin-bottom: 6px;
+        }
+
+        .savjet-sadrzaj p {
+            font-size: 14px;
+            color: #5b21b6;
+            line-height: 1.5;
+        }
+
+        .savjet-tag {
+            display: inline-block;
+            background: #7c3aed;
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="kartica">
+        <h1>Tvoj savjet 💜</h1>
+        <p class="podnaslov">Na temelju danas unesenog raspoloženja</p>
+
+        <div class="savjet-kartica" id="savjet-kartica">
+            <div class="savjet-ikona" id="savjet-ikona">🌿</div>
+            <div class="savjet-sadrzaj">
+                <h3 id="savjet-naslov">Uzmi kratku pauzu</h3>
+                <p id="savjet-tekst">Primjećujemo da si danas pod stresom. Pokušaj 5 minuta duboko disati ili prošetati vani — kratka promjena okoline može jako pomoći.</p>
+                <span class="savjet-tag" id="savjet-tag">Za stres</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const savjeti = {
+            1: { ikona: '💙', naslov: 'Nije lako, ali prođe', tekst: 'Loši dani su dio života. Nazovi nekoga kome vjeruješ ili zapiši što osjećaš — ne trebaš sve nositi sam/a.', tag: 'Podrška' },
+            2: { ikona: '🌿', naslov: 'Uzmi kratku pauzu', tekst: 'Pokušaj 5 minuta duboko disati ili prošetati vani — kratka promjena okoline može jako pomoći.', tag: 'Za stres' },
+            3: { ikona: '☕', naslov: 'Danas je OK dan', tekst: 'Niti dobar niti loš — i to je u redu. Posveti si malo vremena za nešto što te veseli.', tag: 'Ravnoteža' },
+            4: { ikona: '⭐', naslov: 'Dobro ti ide!', tekst: 'Drago nam je da si dobro. Zapiši jednu stvar zbog koje si danas zahvalan/na.', tag: 'Motivacija' },
+            5: { ikona: '🎉', naslov: 'Sjajan dan!', tekst: 'Odlično raspoloženje! Iskoristi tu energiju za nešto što si odgađao/la.', tag: 'Energija' }
+        };
+
+        // dohvati raspoloženje iz URL parametra ili localStorage
+        const params = new URLSearchParams(window.location.search);
+        const emoji = parseInt(params.get('emoji')) || 3;
+        const s = savjeti[emoji] || savjeti[3];
+
+        document.getElementById('savjet-ikona').textContent = s.ikona;
+        document.getElementById('savjet-naslov').textContent = s.naslov;
+        document.getElementById('savjet-tekst').textContent = s.tekst;
+        document.getElementById('savjet-tag').textContent = s.tag;
+    </script>
+</body>
+</html>
