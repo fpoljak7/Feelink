@@ -1,0 +1,29 @@
+CREATE DATABASE IF NOT EXISTS feelink CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE feelink;
+
+CREATE TABLE IF NOT EXISTS korisnik (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    lozinka_hash VARCHAR(255) NOT NULL,
+    datum_registracije DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS sesija (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    korisnik_id INT NOT NULL,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    datum_kreiranja DATETIME DEFAULT CURRENT_TIMESTAMP,
+    datum_isteka DATETIME NOT NULL,
+    FOREIGN KEY (korisnik_id) REFERENCES korisnik(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS unos_raspolozenja (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    korisnik_id INT NOT NULL,
+    emoji_vrijednost TINYINT NOT NULL,
+    biljeska TEXT,
+    datum_unosa DATETIME DEFAULT CURRENT_TIMESTAMP,
+    sinkronizirano TINYINT(1) DEFAULT 1,
+    FOREIGN KEY (korisnik_id) REFERENCES korisnik(id) ON DELETE CASCADE
+);
