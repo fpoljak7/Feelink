@@ -1,0 +1,11 @@
+#sakrij PHP greške od korisnika
+php_flag display_errors off
+
+#zabranjeno listanje direktorija
+Options -Indexes
+
+#zaštita config datoteke
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
