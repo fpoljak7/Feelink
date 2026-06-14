@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feelink — Graf raspoloženja</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            padding: 20px;
+        }
+
+        .kartica {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .podnaslov {
+            color: #6b7280;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .filter-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
+        }
+
+        .filter-btn.aktivan {
+            border-color: #6c63ff;
+            background: #ede9fe;
+            color: #6c63ff;
+        }
+
+        .graf-wrapper {
+            position: relative;
+            height: 300px;
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1.5px solid #e5e7eb;
+        }
+
+        .nema-podataka {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #6b7280;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="kartica">
+    <h1>Graf raspoloženja 📈</h1>
+    <p class="podnaslov">Pregled tvojih unosa kroz vrijeme</p>
+
+    <div class="filter-row">
+        <button class="filter-btn aktivan"
+                onclick="promijeniFilter('tjedan', this)">
+            Tjedan
+        </button>
+
+        <button class="filter-btn"
+                onclick="promijeniFilter('trideset', this)">
+            Mjesec
+        </button>
+    </div>
+
+    <div class="graf-wrapper">
+        <canvas id="graf"></canvas>
+
+        <div class="nema-podataka"
+             id="nema-podataka"
+             style="display:none">
+            Nema podataka 📭
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<script>
+    let trenutniGraf = null;
+
+    const emoji = ['', '😞', '😕', '😐', '🙂', '😄'];
+
+    const boje = {
+        1: '#ef4444',
+        2: '#f97316',
+        3: '#eab308',
+        4: '#22c55e',
+        5: '#6c63ff'
+    };
+
+    const scenariji = {
+        nema: [],
+
+        jedan: [
+            {
+                datum: 'Pon',
+                vrijednost: 4
+            }
+        ],
+
+        tjedan: [
+            { datum: 'Pon', vrijednost: 3 },
+            { datum: 'Uto', vrijednost: 2 },
+            { datum: 'Sri', vrijednost: 1 },
+            { datum: 'Čet', vrijednost: 3 },
+            { datum: 'Pet', vrijednost: 4 },
+            { datum: 'Sub', vrijednost: 5 },
+            { datum: 'Ned', vrijednost: 4 }
+        ],
+
+        trideset: Array.from({ length: 30 }, (_, i) => ({
+            datum: `${i + 1}.6`,
+            vrijednost: Math.floor(Math.random() * 5) + 1
+        }))
+    };
+
+    function ucitajScenario(naziv) {
+        prikaziGraf(scenariji[naziv]);
+    }
+
+    function promijeniFilter(filter, gumb) {
+        document.querySelectorAll('.filter-btn')
+            .forEach(btn => btn.classList.remove('aktivan'));
+
+        gumb.classList.add('aktivan');
+
+        ucitajScenario(filter);
+    }
+
+    function prikaziGraf(podaci) {
+
+        const canvas = document.getElementById('graf');
+        const nemaPodataka = document.getElementById('nema-podataka');
+
+        if (podaci.length === 0) {
+            canvas.style.display = 'none';
+            nemaPodataka.style.display = 'flex';
+            return;
+        }
+
+        canvas.style.display = 'block';
+        nemaPodataka.style.display = 'none';
+
+        if (trenutniGraf) {
+            trenutniGraf.destroy();
+        }
+
+        trenutniGraf = new Chart(canvas.getContext('2d'), {
+            type: 'line',
+
+            data: {
+                labels: podaci.map(p => p.datum),
+
+                datasets: [{
+                    data: podaci.map(p => p.vrijednost),
+                    borderColor: '#6c63ff',
+                    backgroundColor: 'rgba(108,99,255,0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: podaci.map(p => boje[p.vrijednost]),
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales: {
+                    y: {
+                        min: 1,
+                        max: 5,
+
+                        ticks: {
+                            stepSize: 1,
+                            callback: value => emoji[value]
+                        }
+                    },
+
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+
+    ucitajScenario('tjedan');
+
+</script>
+
+</body>
+</html>
